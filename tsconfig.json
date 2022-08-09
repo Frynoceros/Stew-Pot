@@ -5,7 +5,8 @@
       "jsx": "react",
       "esModuleInterop": true,
       "noImplicitAny": false,
-      "moduleResolution": "node"
+      "moduleResolution": "node",
+      "outDir": "./tsCompiled"
     },
     "include": ["client", "server"],
     "exclude": ["node_modules"]

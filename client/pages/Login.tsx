@@ -3,7 +3,7 @@ import ReactDOM, { render } from 'react-dom';
 
 const Login = () => {
   return (
-    <div> Login page </div>
+    <div> login page </div>
   )
 }
 
