@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Recipe from './Recipe';
-import PantryPopup from './PantryPopup';
+// import PantryPopup from './PantryPopup';
 import {Container, Button} from '@mui/material';
 import {IRecipe} from '../../types';
 
@@ -41,7 +41,7 @@ const Search = () => {
       >
         Click Here to Select Ingredients
       </Button>
-      {isPopupOpen && <PantryPopup />}
+      {/* {isPopupOpen && <PantryPopup />} */}
       <Button id="search-btn" variant="contained" onClick={clickSearch}>
         Search
       </Button>
