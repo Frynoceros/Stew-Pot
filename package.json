@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "recipefinder",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "start": "nodemon ./server/server.ts & webpack-dev-server",
     "test": "echo 'test'",

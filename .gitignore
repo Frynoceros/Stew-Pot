@@ -1,4 +1,4 @@
 node_modules
 *.env
-tsCompiled
-dist/bundle.js
+tsCompiled/
+dist/
