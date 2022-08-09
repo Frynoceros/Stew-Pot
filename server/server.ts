@@ -1,9 +1,12 @@
 import express, { Request, Response, NextFunction, RequestHandler } from 'express';
+import path from 'path';
 import { ServerError } from './types'
 
 const app = express();
 
+// body parser
 app.use(express.json());
+
 
 app.use('/', (err:ServerError, req:Request, res:Response, next:NextFunction) => {
   const defaultErr = {
