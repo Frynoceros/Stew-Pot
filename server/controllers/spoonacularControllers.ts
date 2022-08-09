@@ -1,7 +1,7 @@
 // types for express req res next
 import {Request, Response, NextFunction } from 'express';
 
-module.exports = {
+export default {
 // ===
 // GET
 // ===

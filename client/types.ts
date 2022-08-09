@@ -6,6 +6,6 @@ export interface IRecipe {
   cuisine: string,
   ingredientList: string, //'lime, salt, paprika'
   cookTime: string, //'45 min' or '1 hr and 15 min' 
-  servings: number
+  servings: number,
   accountId: number
 }

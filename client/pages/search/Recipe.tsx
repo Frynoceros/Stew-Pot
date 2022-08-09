@@ -21,10 +21,10 @@ const Recipe = (props: IRecipe) => {
   const clickFavorite = () => {
     if(isFavorite){
       setIsFavorite(false);
-      setFavButton(StarOutline);
+      setFavButton(<StarOutline />);
     } else {
       setIsFavorite(true);
-      setFavButton(Star);
+      setFavButton(<Star />);
     }
   }
 
