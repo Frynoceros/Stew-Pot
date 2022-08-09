@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Grid, Paper, styled, ButtonBase, Typography, Icon } from '@mui/material';
 import { Star, StarOutline, SvgIconComponent } from '@mui/icons-material';
 import { IRecipe } from '../../types';
+import  { addRecipe, removeRecipe } from '../../slices/recipeSlice';
+import {useDispatch} from 'react-redux';
 
 const Img = styled('img')({
   margin: 'auto',
@@ -11,20 +13,34 @@ const Img = styled('img')({
 });
 
 const Recipe = (props: IRecipe) => {
-
+  const dispatch = useDispatch();
   const { id, name, recipeUrl, img, cuisine, ingredientList, cookTime, servings, accountId } = props;
 
   const [isFavorite, setIsFavorite] = useState<boolean>(true);
-  const [favButton, setFavButton] = useState<SvgIconComponent>(StarOutline);
+  const [favButton, setFavButton] = useState<any>(<StarOutline/>);
 
   // set item to favorite
   const clickFavorite = () => {
     if(isFavorite){
       setIsFavorite(false);
-      setFavButton(<StarOutline />);
+      setFavButton(<StarOutline/>);
+      dispatch(addRecipe({ 
+        id, 
+        name, 
+        recipeUrl,
+        img,
+        cuisine,
+        ingredientList,
+        cookTime,
+        servings,
+        accountId
+       }));
     } else {
       setIsFavorite(true);
-      setFavButton(<Star />);
+      setFavButton(<Star/>);
+      dispatch(removeRecipe({ 
+        id
+      }));
     }
   }
 
