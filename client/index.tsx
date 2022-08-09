@@ -4,7 +4,6 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Pantry from './pages/Pantry';
 import Search from './pages/Search';
-// import { store } from './app/store';
 import {Provider} from 'react-redux';
 
 //upgrade for react 18
