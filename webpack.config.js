@@ -1,6 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -26,7 +25,7 @@ module.exports = {
       template: './client/index.html',
       filename: './index.html',
     }),
-   /* new CopyPlugin({
+    /* new CopyPlugin({
       patterns: [{ from: './client/style.css' }],
     }), */
   ],
@@ -34,9 +33,10 @@ module.exports = {
     static: {
       directory: path.join(__dirname, './dist'),
     },
+    historyApiFallback: true,
     proxy: {
       '/api': 'http://localhost:3000',
-      secure: false
-    }
+      secure: false,
+    },
   },
-}
+};
