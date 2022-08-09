@@ -4,7 +4,8 @@
       "sourceMap": true,
       "jsx": "react",
       "esModuleInterop": true,
-      "noImplicitAny": false
+      "noImplicitAny": false,
+      "moduleResolution": "node"
     },
     "include": ["client", "server"],
     "exclude": ["node_modules"]
