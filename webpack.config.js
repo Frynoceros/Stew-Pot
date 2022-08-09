@@ -26,7 +26,7 @@ module.exports = {
       template: './client/index.html',
       filename: './index.html',
     }),
-   /* new CopyPlugin({
+    /* new CopyPlugin({
       patterns: [{ from: './client/style.css' }],
     }), */
   ],
@@ -34,9 +34,10 @@ module.exports = {
     static: {
       directory: path.join(__dirname, './dist'),
     },
+    historyApiFallback: true,
     proxy: {
       '/api': 'http://localhost:3000',
-      secure: false
-    }
+      secure: false,
+    },
   },
-}
+};
