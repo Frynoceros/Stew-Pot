@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM, {render} from 'react-dom';
 import {HashRouter, BrowserRouter, Routes, Route} from 'react-router-dom';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -8,7 +7,12 @@ import Search from './pages/Search';
 // import { store } from './app/store';
 import {Provider} from 'react-redux';
 
-ReactDOM.render(
+//upgrade for react 18
+import {createRoot} from 'react-dom/client';
+const container = document.getElementById('root');
+const root = createRoot(container);
+
+root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
@@ -26,6 +30,5 @@ ReactDOM.render(
         />
       </Routes>
     </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
