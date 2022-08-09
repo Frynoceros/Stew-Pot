@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM, { render } from 'react-dom';
+import {createRoot} from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -8,7 +8,11 @@ import Search from './pages/search/Search';
 import { store } from './store';
 import { Provider } from 'react-redux';
 
-ReactDOM.render(
+//upgrade for react 18
+
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(
   <Provider store={store}>
     <React.StrictMode>
       <BrowserRouter>
@@ -23,11 +27,10 @@ ReactDOM.render(
               <main style={{padding: '1rem'}}>
                 <p>There's nothing here!</p>
               </main>
-            } /* no match case */
+            } /* no route found */
           />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>
-  </Provider>,
-  document.getElementById('root')
+  </Provider>
 );
