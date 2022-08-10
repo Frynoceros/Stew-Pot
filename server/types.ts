@@ -33,13 +33,17 @@ export type ServerError = {
 //   next: NextFunction
 // ) => Promise<void> | void;
 
-export type filteredRecipe = {
-  id: number,
-  title: string,
-  image: string,
-  missingIngredients: string[],
-  allIngredients: string[],
-  url: string,
-  readyIn: number,
-  servings: number
+export type filteredRecipe = { 
+  id:number, sourceUrl: string, readyInMinutes:number, image:string, servings:number, title:string 
+}
+
+export type filteredRecipeResponse = {
+  id:number,
+  url:string,
+  allIngredients:string[],
+  missingIngredients:string[],
+  title:string,
+  readyIn:number,
+  img:string,
+  servings:number
 }
