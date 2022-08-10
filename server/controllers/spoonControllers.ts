@@ -15,7 +15,8 @@ export const spoonRecipeController = (req: Request, res: Response, next: NextFun
     });
     // https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientString}&number=${numRecipes}&ranking=${ranking}&ignorePantry=${ignorePantry}&apiKey=1cf74764dbd24013935cf83c45275579
     // https://api.spoonacular.com/recipes/findByIngredients?ingredients=apples,+flour,+sugar&number=2&apiKey=1cf74764dbd24013935cf83c45275579
-    fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientString}&number=3&ranking=1&ignorePantry=true&apiKey=c7d56ffc1c7b44268cb5e992365c6f35`)
+    // number=1 in api call: minimize missing ingredients.
+    fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientString}&number=3&ranking=2&ignorePantry=true&apiKey=c7d56ffc1c7b44268cb5e992365c6f35`)
       .then((response) => response.json())
       .then((recipes) => {
         // array of all filtered recipes to be sent to frontend
