@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
-import { Grid, Paper, styled, ButtonBase, Typography, Icon } from '@mui/material';
-import { Star, StarOutline, SvgIconComponent } from '@mui/icons-material';
+import React, { useState, useEffect } from 'react';
+import { Grid, Paper, styled, ButtonBase, Typography, Icon, IconButton } from '@mui/material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { IRecipe } from '../../types';
+import { useDispatch, useSelector } from 'react-redux';
+import type { RootState } from '../../store';
+
+import  { addFavorite, removeFavorite } from '../../slices/favoriteSlice';
 
 const Img = styled('img')({
   margin: 'auto',
@@ -11,28 +15,56 @@ const Img = styled('img')({
 });
 
 const Recipe = (props: IRecipe) => {
-
+  const dispatch = useDispatch();
+  const favorites = useSelector((store: RootState) => store.favorites);
+  console.log(favorites);
+  // const recipes = useSelector(store => store.recipes);
   const { id, name, recipeUrl, img, cuisine, ingredientList, cookTime, servings, accountId } = props;
 
-  const [isFavorite, setIsFavorite] = useState<boolean>(true);
-  const [favButton, setFavButton] = useState<SvgIconComponent>(StarOutline);
+  const [isFav, setFav] = useState<boolean>(false);
 
-  // set item to favorite
-  const clickFavorite = () => {
-    if(isFavorite){
-      setIsFavorite(false);
-      setFavButton(StarOutline);
-    } else {
-      setIsFavorite(true);
-      setFavButton(Star);
-    }
+  const handleClick = (id: number) => {
+    // console.log(isFav, iconColor, id)
+    setFav(!isFav); 
   }
+
+  // favClicked(charId) {
+  //   let method = 'POST';
+  //   if (this.props.favs
+  //     && this.props.favs[charId]) method = 'DELETE';
+  //   fetch(`/api/favs/${charId}`, {
+  //     method,
+  //     body: JSON.stringify({ id: charId }),
+  //     headers: { 'Content-Type': 'application/json' },
+  //   })
+  //     .then(res => res.json())
+  //     .then(({ favs }) => this.props.updateFavs(favs))
+  //     .catch(err => console.log('favClicked: ERROR: ', err));
+  // }
+
+  //toggles color of favicon
+  //dispatch action to update favorite state
+  //sends post request to database to update favorites
+  let iconColor;
+  useEffect(() => {
+    if(isFav){
+      iconColor = "red"
+      dispatch(addFavorite({ 
+        id
+      }));
+    } else {
+      iconColor = "grey"; 
+      dispatch(removeFavorite({ 
+        id
+      }));
+    }
+  }, [isFav]);
 
   return (
     <Paper
       sx={{
         p: 2,
-        margin: 'auto',
+        margin: 2,
         maxWidth: 500,
         flexGrow: 1,
         backgroundColor: (theme) =>
@@ -61,14 +93,11 @@ const Recipe = (props: IRecipe) => {
                 Ingredients: {ingredientList}
               </Typography>
             </Grid>
-            {/* <Grid item>
-              <Typography sx={{ cursor: 'pointer' }} variant="body2">
-                Remove
-              </Typography>
-            </Grid> */}
           </Grid>
           <Grid item>
-            <StarOutline onClick={clickFavorite}/>
+            <IconButton onClick={() => handleClick(id)}>
+              <FavoriteIcon style={ isFav ? {color: "red"} : {color: "gray"} }/>
+            </IconButton>
           </Grid>
         </Grid>
       </Grid>
