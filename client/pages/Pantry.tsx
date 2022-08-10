@@ -99,7 +99,7 @@ export default function StickyHeadTable() {
   return (
     <>
       <Navbar />
-      <MyPantry />
+      {/* <MyPantry /> */}
       <div
         id="myPantry"
         style={{

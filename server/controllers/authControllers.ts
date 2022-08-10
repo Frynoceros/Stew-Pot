@@ -11,6 +11,8 @@ const authController = {
   async postLogin(req, res, next) {
     console.log('Login received');
     const {email, password} = req.body;
+    // console.log(req.body);
+    console.log(email, password);
 
     try {
       if (!email || !password) {
@@ -20,16 +22,12 @@ const authController = {
         const queryStr = `SELECT * FROM account WHERE email = $1;`;
         // check database
         const result = await db.query(queryStr, [email]);
-        console.log('Result Auth:', result.rows);
         if (result.rows.length > 0) {
           const hashPassword = result.rows[0].password;
-          const id = result.rows[0].id;
-
           if (bcrypt.compareSync(password, hashPassword)) {
-            res.locals.loggedIn = id;
+            res.locals.loggedIn = 'Verified';
             console.log('Successful Login');
-            res.cookie('valid', 'user');
-            res.redirect(302, '/pantry');
+            return next();
           } else {
             res.locals.loggedIn = 'Rejected';
           }
@@ -37,10 +35,11 @@ const authController = {
         } else {
           res.locals.loggedIn = 'Rejected';
         }
+        return next();
       }
     } catch (err) {
       console.log(err);
-      next(err);
+      return next(err);
     }
   },
 
@@ -81,18 +80,14 @@ const authController = {
           ]);
           console.log(hashed);
           // Store in locals for frontend
-          res.locals.userID = hashed.rows[0].account_id;
-          console.log('res.locals', res.locals.userID);
-          // const addUser = await db.query(usersQuery, [
-          //   res.locals.userID,
-          //   email,
-          // ]);
-          // console.log('addUser', addUser);
+          // res.locals.userID = hashed.rows[0].account_id;
+          res.locals.newUser = 'newUser';
+          console.log('res.locals', res.locals.newUser);
           return next();
         }
       } else {
         // Store in locals for frontend
-        res.locals.userID = 'Rejected';
+        res.locals.newUser = 'Rejected';
         return next();
       }
     } catch (err) {

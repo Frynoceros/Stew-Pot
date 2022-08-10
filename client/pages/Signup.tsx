@@ -16,6 +16,11 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 const theme = createTheme();
 
 export default function SignUp() {
+  let navigate = useNavigate();
+  const navigateToPantry = () => {
+    navigate('/pantry');
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -40,12 +45,16 @@ export default function SignUp() {
       }),
     })
       .then((response) => response.json())
-      .then((respy) => {
-        let navigate = useNavigate();
-        if (respy) {
-          navigate('./MyPantry', {replace: true});
+      .then((info) => {
+        if (info !== 'newUser') {
+          console.log('sign-in');
+          navigateToPantry();
+        } else {
+          console.log('rejected');
+          window.alert('Incorrect username or password');
         }
-      });
+      })
+      .catch((err) => console.log(err));
   };
 
   return (

@@ -1,5 +1,12 @@
-import React, {useRef} from 'react';
-import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
+import * as React from 'react';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useNavigate,
+  Navigate,
+} from 'react-router-dom';
 
 import {
   Avatar,
@@ -25,18 +32,21 @@ function Copyright(props: any) {
       {...props}
     >
       {'Copyright © '}
-      {/* <Link color="inherit" href="https://google.com/">
-        Food
-      </Link>{' '} */}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
   );
 }
 
+// let navigate = useNavigate();
 const theme = createTheme();
 
 export default function Login() {
+  let navigate = useNavigate();
+  const navigateToPantry = () => {
+    // 👇️ navigate to /pantry
+    navigate('/pantry');
+  };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -44,23 +54,23 @@ export default function Login() {
       email: data.get('email'),
       password: data.get('password'),
     });
-    fetch('https://reqres.in/api/posts', {
+    fetch('/api/user/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/JSON',
       },
       body: JSON.stringify({
-        username: data.get('email'),
+        email: data.get('email'),
         password: data.get('password'),
       }),
     })
       .then((response) => response.json())
       .then((info) => {
         if (info !== 'Rejected') {
-          // dispatch(logIn(info));
-
-          console.log(info);
+          console.log('sign-in');
+          navigateToPantry();
         } else {
+          console.log('rejected');
           window.alert('Incorrect username or password');
         }
       })
