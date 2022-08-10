@@ -6,6 +6,8 @@ import { IRecipe } from '../../types';
 
 const Search = () => {
 
+  const [recipeList, setRecipeList] = useState([]);
+
   let recipeResults: IRecipe[] = [
     {
       key: 1,
@@ -53,25 +55,6 @@ const Search = () => {
       />
     )
   })
-  
-  const clickSearch = () => {
-    const body = {
-      ingredients: ['apple', 'orange']
-    }
-
-    //fetch request
-    fetch('http://localhost:3000/getAllRecipes', {
-      method: "post",
-      body: JSON.stringify(body),
-      headers: { "Content-Type": "application/json" }
-    })
-      .then(res => res.json())
-      .then(res => {
-        console.log(res);
-        //set elements to recipe results and render
-      })
-      .catch(err => console.log("Error in getRecipes fetch request:", err))
-  }
 
   //modal popup
   const [open, setOpen] = React.useState<boolean>(false);
@@ -85,7 +68,7 @@ const Search = () => {
   return (
     <Container id="search-page" maxWidth="xl">
       <Box id="button-box" sx={{textAlign:'center'}} m={2} p={3}>
-        <Button id="select-ingredients-btn" variant="contained" color="primary" onClick={handleOpen} sx={{ height: 40, width: 450, p: 1, mr: 6 }}>
+        <Button id="select-ingredients-btn" variant="contained" color="primary" onClick={handleOpen} sx={{ height: 40, width: 450, p: 1, m: 2 }}>
           Click Here to Select Ingredients
         </Button>
         
@@ -98,12 +81,11 @@ const Search = () => {
         >
           <PantryPopup 
             handleClose={handleClose}
+            setRecipeList={setRecipeList}
           />
         </Modal>
           
-        <Button id="search-btn" variant="contained" onClick={clickSearch} sx={{ height: 40, width: 140, p: 1, ml: 6 }}>
-          Search
-        </Button>
+        
       </Box>
     
       <Grid
