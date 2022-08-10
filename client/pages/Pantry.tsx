@@ -9,6 +9,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import {flexbox} from '@mui/system';
 import Navbar from './Navbar';
+import MyPantry from './MyPantry';
 
 interface Column {
   id: 'name' | 'code' | 'population' | 'size' | 'density';
@@ -98,6 +99,7 @@ export default function StickyHeadTable() {
   return (
     <>
       <Navbar />
+      <MyPantry />
       <div
         id="myPantry"
         style={{
