@@ -19,7 +19,7 @@ import DinnerDiningIcon from '@mui/icons-material/DinnerDining';
 const pages = ['Pantry', 'Kitchen'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const ResponsiveAppBar = () => {
+const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -62,7 +62,7 @@ const ResponsiveAppBar = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Stew Pot
           </Typography>
 
           <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
@@ -166,4 +166,4 @@ const ResponsiveAppBar = () => {
     </AppBar>
   );
 };
-export default ResponsiveAppBar;
+export default Navbar;

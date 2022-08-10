@@ -7,6 +7,7 @@ import Pantry from './pages/Pantry';
 import Search from './pages/search/Search';
 import {store} from './store';
 import {Provider} from 'react-redux';
+import Navbar from './pages/Navbar';
 
 //upgrade for react 18
 
@@ -16,6 +17,7 @@ root.render(
   <Provider store={store}>
     <React.StrictMode>
       <BrowserRouter>
+        {/* <Navbar /> */}
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="signup" element={<Signup />} />
