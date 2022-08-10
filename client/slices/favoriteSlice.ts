@@ -1,18 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export const favoriteSlice = createSlice({
-  name: 'favorite',
-  initialState: [] as any,
+  name: 'favorites',
+  initialState: [],
   reducers: {
     // add your non-async reducers here
     addFavorite: (state, action) => {
-      state.favoriteList.push(action.payload);
+      state.push(action.payload);
     },
     removeFavorite: (state, action) => {
-      state.favoriteList.filter((el, ind) => ind !== action.payload.index)
+      let filtered;
+      const { id } = action.payload;
+      const existingFav = state.find(fav => fav.id === id);
+      if(existingFav) {
+        filtered = state.filter(fav => fav.id !== id);
+      }
+      state = filtered;
     }
   }
 })
+// console.log(favoriteSlice)
 
 // Action creators
 export const { addFavorite, removeFavorite } = favoriteSlice.actions;
