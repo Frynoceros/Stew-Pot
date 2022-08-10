@@ -1,5 +1,5 @@
-import React, {useRef} from 'react';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import * as React from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 
 import {
   Avatar,
@@ -8,13 +8,12 @@ import {
   TextField,
   FormControlLabel,
   Checkbox,
-  Link,
   Paper,
   Box,
   Grid,
   Typography,
 } from '@mui/material';
-import DinnerDiningIcon from '@mui/icons-material/DinnerDining';
+import KitchenIcon from '@mui/icons-material/Kitchen';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 
 function Copyright(props: any) {
@@ -26,9 +25,6 @@ function Copyright(props: any) {
       {...props}
     >
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Food
-      </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -38,6 +34,13 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function Login() {
+  // declare variable to help use useNavigate hook for redirect
+  let navigate = useNavigate();
+  const navigateToSearch = () => {
+    // navigate to /search
+    navigate('/search');
+  };
+  // capture form data
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -45,23 +48,28 @@ export default function Login() {
       email: data.get('email'),
       password: data.get('password'),
     });
-    fetch('https://reqres.in/api/posts', {
+
+    // send post request to verify user info
+    fetch('/api/user/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/JSON',
       },
       body: JSON.stringify({
-        username: data.get('email'),
+        email: data.get('email'),
         password: data.get('password'),
       }),
     })
+      // check if info is correct or not
       .then((response) => response.json())
       .then((info) => {
         if (info !== 'Rejected') {
-          // dispatch(logIn(info));
-
-          console.log(info);
+          // if successful then sign in
+          console.log('sign-in');
+          navigateToSearch();
         } else {
+          //otherwise give error
+          console.log('rejected');
           window.alert('Incorrect username or password');
         }
       })
@@ -100,7 +108,7 @@ export default function Login() {
             }}
           >
             <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
-              <DinnerDiningIcon />
+              <KitchenIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
               Sign in
@@ -145,14 +153,10 @@ export default function Login() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="passwordReset" variant="body2">
-                    Forgot password?
-                  </Link>
+                  <Link to="/login">{'Forgot password?'}</Link>
                 </Grid>
                 <Grid item>
-                  <Link href="signup" variant="body2">
-                    {'Need to sign up?'}
-                  </Link>
+                  <Link to="/signup">{'Need to sign up?'}</Link>
                 </Grid>
               </Grid>
               <Copyright sx={{mt: 5}} />

@@ -1,11 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { Grid, Paper, styled, ButtonBase, Typography, Icon, IconButton } from '@mui/material';
+import React, {useState, useEffect} from 'react';
+import {
+  Grid,
+  Paper,
+  styled,
+  ButtonBase,
+  Typography,
+  Icon,
+  IconButton,
+} from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { IRecipe } from '../../types';
-import { useDispatch, useSelector } from 'react-redux';
-import type { RootState } from '../../store';
+import {IRecipe} from '../../types';
+import {useDispatch, useSelector} from 'react-redux';
+import type {RootState} from '../../store';
 
-import  { addFavorite, removeFavorite } from '../../slices/favoriteSlice';
+import {addFavorite, removeFavorite} from '../../slices/favoriteSlice';
 
 const Img = styled('img')({
   margin: 'auto',
@@ -19,14 +27,24 @@ const Recipe = (props: IRecipe) => {
   const favorites = useSelector((store: RootState) => store.favorites);
   console.log(favorites);
   // const recipes = useSelector(store => store.recipes);
-  const { id, name, recipeUrl, img, cuisine, ingredientList, cookTime, servings, accountId } = props;
+  const {
+    id,
+    name,
+    recipeUrl,
+    img,
+    cuisine,
+    ingredientList,
+    cookTime,
+    servings,
+    accountId,
+  } = props;
 
   const [isFav, setFav] = useState<boolean>(false);
 
   const handleClick = (id: number) => {
     // console.log(isFav, iconColor, id)
-    setFav(!isFav); 
-  }
+    setFav(!isFav);
+  };
 
   // favClicked(charId) {
   //   let method = 'POST';
@@ -47,16 +65,20 @@ const Recipe = (props: IRecipe) => {
   //sends post request to database to update favorites
   let iconColor;
   useEffect(() => {
-    if(isFav){
-      iconColor = "red"
-      dispatch(addFavorite({ 
-        id
-      }));
+    if (isFav) {
+      iconColor = 'red';
+      dispatch(
+        addFavorite({
+          id,
+        })
+      );
     } else {
-      iconColor = "grey"; 
-      dispatch(removeFavorite({ 
-        id
-      }));
+      iconColor = 'grey';
+      dispatch(
+        removeFavorite({
+          id,
+        })
+      );
     }
   }, [isFav]);
 
@@ -73,7 +95,7 @@ const Recipe = (props: IRecipe) => {
     >
       <Grid container spacing={2}>
         <Grid item>
-          <ButtonBase sx={{ width: 128, height: 128 }}>
+          <ButtonBase sx={{width: 128, height: 128}}>
             <Img alt="complex" src={img} />
           </ButtonBase>
         </Grid>
@@ -81,13 +103,15 @@ const Recipe = (props: IRecipe) => {
           <Grid item xs container direction="column" spacing={2}>
             <Grid item xs>
               <Typography gutterBottom variant="subtitle1" component="div">
-                <a href={recipeUrl}>{name}</a>
+                <a target="_blank" href={recipeUrl}>
+                  {name}
+                </a>
               </Typography>
               <Typography variant="body2" gutterBottom>
-                Time to Prepare: {cookTime} 
+                Time to Prepare: {cookTime}
               </Typography>
               <Typography variant="body2" gutterBottom>
-                Servings: {servings} 
+                Servings: {servings}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 Ingredients: {ingredientList}
@@ -96,14 +120,13 @@ const Recipe = (props: IRecipe) => {
           </Grid>
           <Grid item>
             <IconButton onClick={() => handleClick(id)}>
-              <FavoriteIcon style={ isFav ? {color: "red"} : {color: "gray"} }/>
+              <FavoriteIcon style={isFav ? {color: 'red'} : {color: 'gray'}} />
             </IconButton>
           </Grid>
         </Grid>
       </Grid>
     </Paper>
-  )
-}
+  );
+};
 
 export default Recipe;
-

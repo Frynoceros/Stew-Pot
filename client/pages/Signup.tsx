@@ -1,66 +1,59 @@
-import React, {useRef} from 'react';
-import {useDispatch} from 'react-redux';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import DinnerDiningIcon from '@mui/icons-material/DinnerDining';
-import Typography from '@mui/material/Typography';
+import React from 'react';
+import {Link, useNavigate} from 'react-router-dom';
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  Paper,
+  Box,
+  Grid,
+  Typography,
+} from '@mui/material';
+import KitchenIcon from '@mui/icons-material/Kitchen';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-
-function Copyright(props: any) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {'Copyright © '}
-      <Link color="inherit" href="https://spoonacular.com/">
-        FOOD
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const theme = createTheme();
 
 export default function SignUp() {
+  //declare variable to use navigate hook
+  let navigate = useNavigate();
+  const navigateToSearch = () => {
+    navigate('/search');
+  };
+  //function for grabbing form data
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      firstName: data.get('firstName'),
-      lastName: data.get('lastName'),
-      username: data.get('email'),
-      password: data.get('password'),
-    });
-    fetch('https://reqres.in/api/posts', {
+
+    const username = data.get('username');
+    const password = data.get('password');
+    const email = data.get('email');
+
+    // post request to create username - send username, password and email
+    fetch('/api/user/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/JSON',
       },
       body: JSON.stringify({
-        firstName: data.get('firstName'),
-        lastName: data.get('lastName'),
-        username: data.get('email'),
-        password: data.get('password'),
+        username: username,
+        password: password,
+        email: email,
       }),
     })
+      // verify correct response and redirect in
       .then((response) => response.json())
-      .then((respy) => {
-        console.log(respy);
-      });
+      .then((info) => {
+        if (info !== 'newUser') {
+          console.log('sign-in');
+          navigateToSearch();
+        } else {
+          console.log('rejected');
+          window.alert('Incorrect username or password');
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -94,7 +87,7 @@ export default function SignUp() {
             }}
           >
             <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
-              <DinnerDiningIcon />
+              <KitchenIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
               Sign up
@@ -106,35 +99,14 @@ export default function SignUp() {
               sx={{mt: 3}}
             >
               <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    autoComplete="given-name"
-                    name="firstName"
-                    required
-                    fullWidth
-                    id="firstName"
-                    label="First Name"
-                    autoFocus
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    required
-                    fullWidth
-                    id="lastName"
-                    label="Last Name"
-                    name="lastName"
-                    autoComplete="family-name"
-                  />
-                </Grid>
                 <Grid item xs={12}>
                   <TextField
                     required
                     fullWidth
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    autoComplete="email"
+                    id="username"
+                    label="Username"
+                    name="username"
+                    autoComplete="username"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -148,6 +120,16 @@ export default function SignUp() {
                     autoComplete="new-password"
                   />
                 </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                  />
+                </Grid>
               </Grid>
               <Button
                 type="submit"
@@ -159,9 +141,7 @@ export default function SignUp() {
               </Button>
               <Grid container justifyContent="center">
                 <Grid item>
-                  <Link href="/" variant="body2">
-                    {'Just need to sign in?'}
-                  </Link>
+                  <Link to={'/'}>{'Have an account already?'}</Link>
                 </Grid>
               </Grid>
             </Box>{' '}
