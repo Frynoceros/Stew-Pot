@@ -3,7 +3,7 @@ import {Request, Response, NextFunction, RequestHandler} from 'express';
 import fetch from 'node-fetch';
 import {filteredRecipe, filteredRecipeResponse} from '../types'
 
-export const spoonIngredientController = (req: Request, res: Response, next: NextFunction):void => {
+export const spoonRecipeController = (req: Request, res: Response, next: NextFunction):void => {
     // const { ingredients, numRecipes , ranking, ignorePantry } = req.body;
     // get array of ingredients from frontend
     const { ingredients }: { ingredients: string[] } = req.body;
