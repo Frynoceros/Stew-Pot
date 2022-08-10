@@ -3,7 +3,7 @@ import { Container, Grid, Paper, styled, ButtonBase, Typography, Icon } from '@m
 
 const PantryPopup = (props) => {
 
-  const useStyles = makeStyles(theme => ({
+  const useStyles = (theme => ({
     modal: {
         display: 'flex',
         alignItems: 'center',
