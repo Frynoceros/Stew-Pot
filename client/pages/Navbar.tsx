@@ -16,6 +16,7 @@ import {
 
 import MenuIcon from '@mui/icons-material/Menu';
 import KitchenIcon from '@mui/icons-material/Kitchen';
+import logo from '../assets/logo.png'
 
 const pages = ['Pantry', 'Kitchen'];
 const settings = ['Logout'];
@@ -47,7 +48,7 @@ const Navbar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <KitchenIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}} />
+          <img src={logo} style={{height: '35px', width: '35px', marginRight: '5px'}}/>
           <Typography
             variant="h6"
             noWrap

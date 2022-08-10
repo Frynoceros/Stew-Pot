@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Recipe from './Recipe';
 import PantryPopup from './PantryPopup';
 import {Container, Button, Modal, Box, Grid} from '@mui/material';
+import Navbar from '../Navbar';
 import {IRecipe} from '../../types';
 import Navbar from '../Navbar';
 
