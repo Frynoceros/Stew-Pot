@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Recipe from './Recipe';
 import PantryPopup from './PantryPopup';
 import {Container, Button, Modal, Box, Grid} from '@mui/material';
+import Navbar from '../Navbar'
 import {IRecipe} from '../../types';
 
 const Search = () => {
@@ -66,6 +67,7 @@ const Search = () => {
 
   return (
     <Container id="search-page" maxWidth="xl">
+      <Navbar/>
       <Box id="button-box" sx={{textAlign: 'center'}} m={2} p={3}>
         <Button
           id="select-ingredients-btn"
