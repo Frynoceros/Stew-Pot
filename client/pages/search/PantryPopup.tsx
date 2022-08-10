@@ -20,7 +20,7 @@ const PantryPopup = (props) => {
   const {handleClose} = props;
 
   return (
-    <Box id="pantry-popup" sx={{...style, width: 200}}> 
+    <Box id="pantry-popup" sx={{...style, width: 800}}> 
       <CloseIcon onClick={handleClose}/>
       <Typography id="modal-modal-title" variant="h6" component="h2">
         This is the pantry popup

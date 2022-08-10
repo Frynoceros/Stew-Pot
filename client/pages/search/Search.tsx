@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import Recipe from './Recipe';
 import PantryPopup from './PantryPopup';
-import { Container, Button, Modal, withStyles } from '@mui/material';
+import { Container, Button, Modal, Box, Grid } from '@mui/material';
 import { IRecipe } from '../../types';
 
 const Search = () => {
 
   let recipeResults: IRecipe[] = [
     {
+      key: 1,
       id: 1,
       name: "ham and cheese",
       recipeUrl:"hamandcheese.com",
@@ -16,9 +17,11 @@ const Search = () => {
       ingredientList: "ham, cheese, bread",
       cookTime: "5 min",
       servings: 1,
-      accountId: 1
+      accountId: 1,
+      isFav: true
     },
     {
+      key: 2,
       id: 2,
       name: "ham and cheese",
       recipeUrl:"hamandcheese.com",
@@ -27,7 +30,8 @@ const Search = () => {
       ingredientList: "ham, cheese, bread",
       cookTime: "5 min",
       servings: 1,
-      accountId: 1
+      accountId: 1,
+      isFav: false
     }
   ]
 
@@ -35,6 +39,7 @@ const Search = () => {
   const recipes: any[] = recipeResults.map(el => {
     return(
       <Recipe 
+        key={el.id}
         id={el.id}
         name={el.name}
         recipeUrl={el.recipeUrl}
@@ -44,6 +49,7 @@ const Search = () => {
         cookTime={el.cookTime}
         servings={el.servings}
         accountId={el.accountId}
+        isFav={el.isFav}
       />
     )
   })
@@ -54,7 +60,7 @@ const Search = () => {
     }
 
     //fetch request
-    fetch('http://localhost:3000/getRecipes', {
+    fetch('http://localhost:3000/getAllRecipes', {
       method: "post",
       body: JSON.stringify(body),
       headers: { "Content-Type": "application/json" }
@@ -62,10 +68,12 @@ const Search = () => {
       .then(res => res.json())
       .then(res => {
         console.log(res);
+        //set elements to recipe results and render
       })
       .catch(err => console.log("Error in getRecipes fetch request:", err))
   }
 
+  //modal popup
   const [open, setOpen] = React.useState<boolean>(false);
   const handleOpen = () => {
     setOpen(true);
@@ -76,30 +84,39 @@ const Search = () => {
 
   return (
     <Container id="search-page" maxWidth="xl">
-      <Button id="select-ingredients-btn" variant="contained" color="primary" onClick={handleOpen}>
-        Click Here to Select Ingredients
-      </Button>
-      
-      <Modal
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        hideBackdrop
-        open={open}
-        onClose={handleClose}
-      >
-        <PantryPopup 
-          handleClose={handleClose}
-        />
-      </Modal>
+      <Box id="button-box" sx={{textAlign:'center'}} m={2} p={3}>
+        <Button id="select-ingredients-btn" variant="contained" color="primary" onClick={handleOpen} sx={{ height: 40, width: 450, p: 1, mr: 6 }}>
+          Click Here to Select Ingredients
+        </Button>
         
-      <Button id="search-btn" variant="contained" onClick={clickSearch}>'
-        Search
-      </Button>
-
-      <Container id="recipe-box" maxWidth="lg">
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          hideBackdrop
+          open={open}
+          onClose={handleClose}
+        >
+          <PantryPopup 
+            handleClose={handleClose}
+          />
+        </Modal>
+          
+        <Button id="search-btn" variant="contained" onClick={clickSearch} sx={{ height: 40, width: 140, p: 1, ml: 6 }}>
+          Search
+        </Button>
+      </Box>
+    
+      <Grid
+        id="recipe-box"
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+      >
         {recipes}
-      </Container>
-    </Container>
+      </Grid>
+     </Container> 
   )
 }
 
