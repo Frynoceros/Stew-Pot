@@ -1,7 +1,4 @@
-// import { createSlice } from '@reduxjs/toolkit'
-
 import { createSlice } from '@reduxjs/toolkit'
-// import type { PayloadAction } from '@reduxjs/toolkit'
 
 export const favoriteSlice = createSlice({
   name: 'favorite',
@@ -14,11 +11,9 @@ export const favoriteSlice = createSlice({
     removeFavorite: (state, action) => {
       state.favoriteList.filter((el, ind) => ind !== action.payload.index)
     }
-  },
-  extraReducers: {
-    // add your async reducers here
   }
 })
+
 // Action creators
 export const { addFavorite, removeFavorite } = favoriteSlice.actions;
 export default favoriteSlice.reducer;
