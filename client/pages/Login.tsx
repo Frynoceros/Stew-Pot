@@ -1,12 +1,5 @@
 import * as React from 'react';
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Link,
-  useNavigate,
-  Navigate,
-} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 import {
   Avatar,
@@ -38,15 +31,16 @@ function Copyright(props: any) {
   );
 }
 
-// let navigate = useNavigate();
 const theme = createTheme();
 
 export default function Login() {
+  // declare variable to help use useNavigate hook for redirect
   let navigate = useNavigate();
-  const navigateToPantry = () => {
-    // 👇️ navigate to /pantry
-    navigate('/pantry');
+  const navigateToSearch = () => {
+    // navigate to /search
+    navigate('/search');
   };
+  // capture form data
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -54,6 +48,8 @@ export default function Login() {
       email: data.get('email'),
       password: data.get('password'),
     });
+
+    // send post request to verify user info
     fetch('/api/user/login', {
       method: 'POST',
       headers: {
@@ -64,12 +60,15 @@ export default function Login() {
         password: data.get('password'),
       }),
     })
+      // check if info is correct or not
       .then((response) => response.json())
       .then((info) => {
         if (info !== 'Rejected') {
+          // if successful then sign in
           console.log('sign-in');
-          navigateToPantry();
+          navigateToSearch();
         } else {
+          //otherwise give error
           console.log('rejected');
           window.alert('Incorrect username or password');
         }

@@ -1,22 +1,18 @@
 import express, { Request, Response, NextFunction, RequestHandler } from 'express';
+
+import pantryController from '../controllers/pantryController';
  
 const pantryRouter = express.Router();
 
 pantryRouter.route('/pantry')
-  .get((req: Request, res: Response, next: NextFunction) => {
-
-}).post((req: Request, res: Response, next: NextFunction) => {
-
-})
-
-
-pantryRouter.put('/pantry/:_id', (req: Request, res: Response, next: NextFunction) => {
-
-});
-
-
-pantryRouter.delete('/pantry/:_id', (req: Request, res: Response, next: NextFunction) => {
-
+  .get(pantryController.getAllPantryItems, (req: Request, res: Response, next: NextFunction) => {
+    res.json(res.locals.pantry)
+}).post(pantryController.addPantryItem, (req: Request, res: Response, next: NextFunction) => {
+    res.json(res.locals.pantry)
+}).put(pantryController.editPantryItem, (req: Request, res: Response, next: NextFunction) => {
+    res.json(res.locals.pantry)
+}).delete(pantryController.deletePantryItem, (req: Request, res: Response, next: NextFunction) => {
+    res.json(res.locals.pantry)
 });
 
 export default pantryRouter;

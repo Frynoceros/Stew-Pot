@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {
   Avatar,
@@ -16,11 +16,12 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 const theme = createTheme();
 
 export default function SignUp() {
+  //declare variable to use navigate hook
   let navigate = useNavigate();
-  const navigateToPantry = () => {
-    navigate('/pantry');
+  const navigateToSearch = () => {
+    navigate('/search');
   };
-
+  //function for grabbing form data
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -28,11 +29,8 @@ export default function SignUp() {
     const username = data.get('username');
     const password = data.get('password');
     const email = data.get('email');
-    console.log({
-      username: data.get('username'),
-      password: data.get('password'),
-      email: data.get('email'),
-    });
+
+    // post request to create username - send username, password and email
     fetch('/api/user/signup', {
       method: 'POST',
       headers: {
@@ -44,11 +42,12 @@ export default function SignUp() {
         email: email,
       }),
     })
+      // verify correct response and redirect in
       .then((response) => response.json())
       .then((info) => {
         if (info !== 'newUser') {
           console.log('sign-in');
-          navigateToPantry();
+          navigateToSearch();
         } else {
           console.log('rejected');
           window.alert('Incorrect username or password');
