@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 
 import MenuIcon from '@mui/icons-material/Menu';
-import DinnerDiningIcon from '@mui/icons-material/DinnerDining';
+import KitchenIcon from '@mui/icons-material/Kitchen';
 
 const pages = ['Pantry', 'Kitchen'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -46,7 +46,7 @@ const Navbar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <DinnerDiningIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}} />
+          <KitchenIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}} />
           <Typography
             variant="h6"
             noWrap
@@ -101,7 +101,7 @@ const Navbar = () => {
               ))}
             </Menu>
           </Box>
-          <DinnerDiningIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}} />
+          <KitchenIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}} />
           <Typography
             variant="h5"
             noWrap

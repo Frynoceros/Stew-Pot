@@ -14,7 +14,7 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
-import DinnerDiningIcon from '@mui/icons-material/DinnerDining';
+import KitchenIcon from '@mui/icons-material/Kitchen';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 
 function Copyright(props: any) {
@@ -100,7 +100,7 @@ export default function Login() {
             }}
           >
             <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
-              <DinnerDiningIcon />
+              <KitchenIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
               Sign in
