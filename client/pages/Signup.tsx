@@ -1,11 +1,10 @@
 import React, {useRef} from 'react';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 import {
   Avatar,
   Button,
   CssBaseline,
   TextField,
-  Link,
   Paper,
   Box,
   Grid,
@@ -87,7 +86,7 @@ export default function SignUp() {
               sx={{mt: 3}}
             >
               <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
+                {/* <Grid item xs={12} sm={6}>
                   <TextField
                     autoComplete="given-name"
                     name="firstName"
@@ -97,8 +96,8 @@ export default function SignUp() {
                     label="First Name"
                     autoFocus
                   />
-                </Grid>
-                <Grid item xs={12} sm={6}>
+                </Grid> */}
+                {/* <Grid item xs={12} sm={6}>
                   <TextField
                     required
                     fullWidth
@@ -106,6 +105,16 @@ export default function SignUp() {
                     label="Last Name"
                     name="lastName"
                     autoComplete="family-name"
+                  /> */}
+                {/* </Grid> */}
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="username"
+                    label="Username"
+                    name="username"
+                    autoComplete="username"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -140,9 +149,7 @@ export default function SignUp() {
               </Button>
               <Grid container justifyContent="center">
                 <Grid item>
-                  <Link href="/" variant="body2">
-                    {'Have an account already?'}
-                  </Link>
+                  <Link to={'/'}>{'Have an account already?'}</Link>
                 </Grid>
               </Grid>
             </Box>{' '}

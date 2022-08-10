@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Link} from 'react-router-dom';
 import {
   AppBar,
   Box,
@@ -17,7 +18,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import KitchenIcon from '@mui/icons-material/Kitchen';
 
 const pages = ['Pantry', 'Kitchen'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Logout'];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -51,7 +52,6 @@ const Navbar = () => {
             variant="h6"
             noWrap
             component="a"
-            href="/"
             sx={{
               mr: 2,
               display: {xs: 'none', md: 'flex'},
@@ -121,15 +121,26 @@ const Navbar = () => {
             LOGO
           </Typography>
           <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-            {pages.map((page) => (
+            {/* {pages.map((page) => ( */}
+            <Link to="/pantry" style={{textDecoration: 'none'}}>
               <Button
-                key={page}
+                key="Pantry"
                 onClick={handleCloseNavMenu}
                 sx={{my: 2, color: 'white', display: 'block'}}
               >
-                {page}
+                Pantry
               </Button>
-            ))}
+            </Link>
+            <Link to="/search" style={{textDecoration: 'none'}}>
+              <Button
+                key="Kitchen"
+                onClick={handleCloseNavMenu}
+                sx={{my: 2, color: 'white', display: 'block'}}
+              >
+                Kitchen
+              </Button>
+            </Link>
+            {/* // ))} */}
           </Box>
 
           <Box sx={{flexGrow: 0}}>
@@ -156,7 +167,9 @@ const Navbar = () => {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  <Link to="/" style={{textDecoration: 'none'}}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>

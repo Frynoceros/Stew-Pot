@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 
 import {
   Avatar,
@@ -8,7 +8,6 @@ import {
   TextField,
   FormControlLabel,
   Checkbox,
-  Link,
   Paper,
   Box,
   Grid,
@@ -26,9 +25,9 @@ function Copyright(props: any) {
       {...props}
     >
       {'Copyright © '}
-      <Link color="inherit" href="https://google.com/">
+      {/* <Link color="inherit" href="https://google.com/">
         Food
-      </Link>{' '}
+      </Link>{' '} */}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -145,14 +144,10 @@ export default function Login() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="passwordReset" variant="body2">
-                    Forgot password?
-                  </Link>
+                  <Link to="/login">{'Forgot password?'}</Link>
                 </Grid>
                 <Grid item>
-                  <Link href="signup" variant="body2">
-                    {'Need to sign up?'}
-                  </Link>
+                  <Link to="/signup">{'Need to sign up?'}</Link>
                 </Grid>
               </Grid>
               <Copyright sx={{mt: 5}} />

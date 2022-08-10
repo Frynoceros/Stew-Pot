@@ -48,34 +48,36 @@ const Search = () => {
   };
 
   return (
-    <Container id="search-page" maxWidth="xl">
+    <div>
       <Navbar />
-      <Button
-        id="select-ingredients-btn"
-        variant="contained"
-        color="primary"
-        onClick={handleOpen}
-      >
-        Click Here to Select Ingredients
-      </Button>
+      <Container id="search-page" maxWidth="xl">
+        <Button
+          id="select-ingredients-btn"
+          variant="contained"
+          color="primary"
+          onClick={handleOpen}
+        >
+          Click Here to Select Ingredients
+        </Button>
 
-      <Modal
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        hideBackdrop
-        open={open}
-        onClose={handleClose}
-      >
-        <PantryPopup handleClose={handleClose} />
-      </Modal>
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          hideBackdrop
+          open={open}
+          onClose={handleClose}
+        >
+          <PantryPopup handleClose={handleClose} />
+        </Modal>
 
-      <Button id="search-btn" variant="contained" onClick={clickSearch}>
-        Search
-      </Button>
-      <Container id="recipe-box" maxWidth="lg">
-        {recipes}
+        <Button id="search-btn" variant="contained" onClick={clickSearch}>
+          Search
+        </Button>
+        <Container id="recipe-box" maxWidth="lg">
+          {recipes}
+        </Container>
       </Container>
-    </Container>
+    </div>
   );
 };
 

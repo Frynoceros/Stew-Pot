@@ -108,9 +108,17 @@ export default function StickyHeadTable() {
           height: '90vh',
         }}
       >
-        <div id="table1" style={{marginTop: '100px', marginRight: '50px'}}>
-          <Paper sx={{width: '800px', height: '660px', overflow: 'hidden'}}>
-            <TableContainer sx={{maxHeight: 840}}>
+        <div
+          id="table1"
+          style={{
+            marginTop: '5%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Paper sx={{width: '80%', height: '85%', overflow: 'hidden'}}>
+            <TableContainer sx={{maxHeight: '83%'}}>
               <Table stickyHeader aria-label="sticky table">
                 <TableHead>
                   <TableRow>
@@ -163,9 +171,17 @@ export default function StickyHeadTable() {
             />
           </Paper>
         </div>
-        <div id="table2" style={{marginTop: '100px', marginLeft: '50px'}}>
-          <Paper sx={{width: '800px', height: '660px', overflow: 'hidden'}}>
-            <TableContainer sx={{maxHeight: 840}}>
+        <div
+          id="table2"
+          style={{
+            marginTop: '5%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Paper sx={{width: '80%', height: '85%', overflow: 'hidden'}}>
+            <TableContainer sx={{maxHeight: '83%'}}>
               <Table stickyHeader aria-label="sticky table">
                 <TableHead>
                   <TableRow>
