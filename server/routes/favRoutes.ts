@@ -1,4 +1,6 @@
-import express, { Request, Response, NextFunction, RequestHandler } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
+
+import favController from '../controllers/favController';
 
 const favRouter = express.Router();
 
@@ -6,15 +8,14 @@ const favRouter = express.Router();
 // ================
 
 favRouter.route('/favorites')
-  .get((req: Request, res: Response, next: NextFunction) => {
-
+  .get(favController.getFavsByAccountId, (req: Request, res: Response, next: NextFunction) => {
+    res.json(res.locals.favorites)
   })
-  .post((req: Request, res: Response, next: NextFunction) => {
-
+  .post(favController.addFavById, (req: Request, res: Response, next: NextFunction) => {
+    res.json(res.locals.favorites)
   })
-
-favRouter.delete('/recipes:_id', (req: Request, res: Response, next: NextFunction) => {
-
-});
+  .delete(favController.deleteFavById, (req: Request, res: Response, next: NextFunction) => {
+    res.json(res.locals.favorites)
+  });
 
 export default favRouter;
