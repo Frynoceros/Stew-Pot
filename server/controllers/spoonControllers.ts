@@ -14,9 +14,9 @@ export const spoonRecipeController = (req: Request, res: Response, next: NextFun
       (index !== ingredients.length-1) ? ingredientString += `${ingredient},+` : ingredientString += `${ingredient}`
     });
     // https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientString}&number=${numRecipes}&ranking=${ranking}&ignorePantry=${ignorePantry}&apiKey=1cf74764dbd24013935cf83c45275579
-    // https://api.spoonacular.com/recipes/findByIngredients?ingredients=apples,+flour,+sugar&number=2&apiKey=1cf74764dbd24013935cf83c45275579
+    // https://api.spoonacular.com/recipes/findByIngredients?ingredients=apples,+flour,+sugar&number=2&apiKey=13f9369a3bec409ebe5f9e90ba459277
     // number=1 in api call: minimize missing ingredients.
-    fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientString}&number=3&ranking=2&ignorePantry=true&apiKey=c7d56ffc1c7b44268cb5e992365c6f35`)
+    fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientString}&number=3&ranking=2&ignorePantry=true&apiKey=13f9369a3bec409ebe5f9e90ba459277`)
       .then((response) => response.json())
       .then((recipes) => {
         // array of all filtered recipes to be sent to frontend
@@ -48,7 +48,7 @@ export const spoonRecipeController = (req: Request, res: Response, next: NextFun
           // =============================================================================================================
           function fetchRecipes(recipeId:number, missingIngredients:string, allIngredients:string) {
             // fetch individual recipe by id (pulled from initial fetch)
-            return fetch(`https://api.spoonacular.com/recipes/${recipeId}/information?includeNutrition=false&apiKey=c7d56ffc1c7b44268cb5e992365c6f35`)
+            return fetch(`https://api.spoonacular.com/recipes/${recipeId}/information?includeNutrition=false&apiKey=13f9369a3bec409ebe5f9e90ba459277`)
               .then(response => response.json())
               .then(recipeInfo => {
                 // destructure additional needed properties from incoming response.
