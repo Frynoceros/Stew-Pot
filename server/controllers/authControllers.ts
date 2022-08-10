@@ -1,34 +1,117 @@
-// const bcrypt = require('bcrypt');
-// import {Request, Response, NextFunction} from 'express';
+const bcrypt = require('bcrypt');
+import db from '../models/usersModels';
+import {RequestHandler} from 'express';
+import {Request, Response, NextFunction} from 'express';
 
-// const authController = {};
+type authController = {
+  postLogin: RequestHandler;
+  signUp: RequestHandler;
+};
+const authController = {
+  async postLogin(req, res, next) {
+    console.log('Login received');
+    const {email, password} = req.body;
 
-// authController.postLogin = function (req, res, next) {
-//   const {username, password} = req.body;
+    try {
+      if (!email || !password) {
+        res.locals.loggedIn = 'Rejected';
+        return next();
+      } else {
+        const queryStr = `SELECT * FROM account WHERE email = $1;`;
+        // check database
+        const result = await db.query(queryStr, [email]);
+        console.log('Result Auth:', result.rows);
+        if (result.rows.length > 0) {
+          const hashPassword = result.rows[0].password;
+          const id = result.rows[0].id;
 
-//   if (!username || !password) {
-//     res.locals.loggedIn = 'Rejected';
-//     return next();
-//   } else {
-//     const queryStr = `SELECT * FROM account WHERE username = $1;`;
-//     // check database
-//     db.query(queryStr, [username], (err, result) => {
-//       if (err) return next(err);
-//       if (result.rows.length > 0) {
-//         const hashPassword = result.rows[0].password;
-//         const id = result.rows[0].id;
+          if (bcrypt.compareSync(password, hashPassword)) {
+            res.locals.loggedIn = id;
+            console.log('Successful Login');
+            res.cookie('valid', 'user');
+            res.redirect(302, '/pantry');
+          } else {
+            res.locals.loggedIn = 'Rejected';
+          }
+          return next();
+        } else {
+          res.locals.loggedIn = 'Rejected';
+        }
+      }
+    } catch (err) {
+      console.log(err);
+      next(err);
+    }
+  },
 
-//         if (bcrypt.compareSync(password, hashPassword)) {
-//           res.locals.loggedIn = id;
-//         } else {
-//           res.locals.loggedIn = 'Rejected';
-//         }
-//         return next();
-//       } else {
-//         res.locals.loggedIn = 'Rejected';
-//       }
-//     });
-//   }
-// };
+  async signUp(req, res, next) {
+    const {username, password, email} = req.body;
 
-// module.exports = authController;
+    const available = `SELECT username
+  FROM account
+  WHERE username = $1`;
+
+    const userlogin = `INSERT INTO account (username, password, email)
+  VALUES ($1, $2, $3)
+  RETURNING account_id`;
+
+    const usersQuery = `INSERT INTO account (account_id, email)
+  VALUES ($1, $2)`;
+
+    const input = [username, password, email];
+
+    // BCRYPT
+    try {
+      // Verify if all info entered
+      if (username && password && email) {
+        res.locals.signUp = 'Success';
+        // Check if username is available
+        const result = await db.query(available, [username]);
+        if (result.rows.length === 0) {
+          console.log('Account is available');
+          console.log('result', result);
+          // Hash password
+          const salt = await bcrypt.genSalt();
+          const securePassword = await bcrypt.hash(password, salt);
+          console.log(password, securePassword);
+          const hashed = await db.query(userlogin, [
+            username,
+            securePassword,
+            email,
+          ]);
+          console.log(hashed);
+          // Store in locals for frontend
+          res.locals.userID = hashed.rows[0].account_id;
+          console.log('res.locals', res.locals.userID);
+          // const addUser = await db.query(usersQuery, [
+          //   res.locals.userID,
+          //   email,
+          // ]);
+          // console.log('addUser', addUser);
+          return next();
+        }
+      } else {
+        // Store in locals for frontend
+        res.locals.userID = 'Rejected';
+        return next();
+      }
+    } catch (err) {
+      console.log('auth error', err);
+      return next(err);
+    }
+  },
+
+  async check(req, res, next) {
+    try {
+      const query = `SELECT * FROM account`;
+      const data = await db.query(query, null);
+      console.log(data);
+      return next();
+    } catch (error) {
+      console.log('check', error);
+      return next(error);
+    }
+  },
+};
+
+export default authController;

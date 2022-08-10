@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {
   Avatar,
   Button,
@@ -19,27 +19,32 @@ export default function SignUp() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+
+    const username = data.get('username');
+    const password = data.get('password');
+    const email = data.get('email');
     console.log({
-      firstName: data.get('firstName'),
-      lastName: data.get('lastName'),
-      username: data.get('email'),
+      username: data.get('username'),
       password: data.get('password'),
+      email: data.get('email'),
     });
-    fetch('https://reqres.in/api/posts', {
+    fetch('/api/user/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/JSON',
       },
       body: JSON.stringify({
-        firstName: data.get('firstName'),
-        lastName: data.get('lastName'),
-        username: data.get('email'),
-        password: data.get('password'),
+        username: username,
+        password: password,
+        email: email,
       }),
     })
       .then((response) => response.json())
       .then((respy) => {
-        console.log(respy);
+        let navigate = useNavigate();
+        if (respy) {
+          navigate('./MyPantry', {replace: true});
+        }
       });
   };
 
@@ -86,27 +91,6 @@ export default function SignUp() {
               sx={{mt: 3}}
             >
               <Grid container spacing={2}>
-                {/* <Grid item xs={12} sm={6}>
-                  <TextField
-                    autoComplete="given-name"
-                    name="firstName"
-                    required
-                    fullWidth
-                    id="firstName"
-                    label="First Name"
-                    autoFocus
-                  />
-                </Grid> */}
-                {/* <Grid item xs={12} sm={6}>
-                  <TextField
-                    required
-                    fullWidth
-                    id="lastName"
-                    label="Last Name"
-                    name="lastName"
-                    autoComplete="family-name"
-                  /> */}
-                {/* </Grid> */}
                 <Grid item xs={12}>
                   <TextField
                     required
@@ -121,21 +105,21 @@ export default function SignUp() {
                   <TextField
                     required
                     fullWidth
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    autoComplete="email"
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="new-password"
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
                     required
                     fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="new-password"
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
                   />
                 </Grid>
               </Grid>
