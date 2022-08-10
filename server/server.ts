@@ -3,6 +3,7 @@ import path from 'path';
 import pantryRoutes from './routes/pantryRoutes';
 import favRoutes from './routes/favRoutes';
 import userRoutes from './routes/userRoutes';
+import spoonRoutes from './routes/spoonRoutes';
 import { ServerError } from './types';
 
 const app = express();
@@ -10,10 +11,13 @@ const app = express();
 // body parser for static files.
 app.use(express.json());
 
-// routes
+// db routes
 app.use('/api', pantryRoutes);
 app.use('/api', favRoutes);
 app.use('/api', userRoutes);
+
+// spoonacular routes
+app.use('/api', spoonRoutes);
 
 
 app.use('/', (err:ServerError, req:Request, res:Response, next:NextFunction) => {

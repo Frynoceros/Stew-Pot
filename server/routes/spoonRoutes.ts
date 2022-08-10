@@ -3,18 +3,16 @@ import {Request, Response, NextFunction } from 'express'
 // should we use request or request promise or axios? Axios has support going forwards, whereas request has been put into maintenance mode. 
 // axios also supports async await, and has browser support. 
 import express from 'express';
-import { spoonController } from '../controllers/spoonacularControllers';
+import { spoonIngredientController } from '../controllers/spoonControllers';
 // Routes for the spoonacular recipe api
 
-const webApiRouter = express.Router();
-// ===
-// GET
-// ===
+const spoonRoutes = express.Router();
+
 // get all recipes(that match request body)
-webApiRouter.get('/recipes', spoonController, (req, res, next) => {
-  res.status(200);
+spoonRoutes.post('/recipes', spoonIngredientController, (req, res, next) => {
+  res.status(200).send(res.locals.recipes);
 });
 
 // get one recipe
-
+export default spoonRoutes;
 
