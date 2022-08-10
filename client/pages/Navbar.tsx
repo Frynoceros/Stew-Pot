@@ -121,7 +121,6 @@ const Navbar = () => {
             LOGO
           </Typography>
           <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-            {/* {pages.map((page) => ( */}
             <Link to="/pantry" style={{textDecoration: 'none'}}>
               <Button
                 key="Pantry"
@@ -140,7 +139,6 @@ const Navbar = () => {
                 Kitchen
               </Button>
             </Link>
-            {/* // ))} */}
           </Box>
 
           <Box sx={{flexGrow: 0}}>
