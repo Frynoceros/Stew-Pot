@@ -9,7 +9,7 @@ import { spoonRecipeController } from '../controllers/spoonControllers';
 const spoonRoutes = express.Router();
 
 // get all recipes(that match request body)
-spoonRoutes.post('/recipes', spoonRecipeController, (req, res, next) => {
+spoonRoutes.get('/recipes', spoonRecipeController, (req, res, next) => {
   res.status(200).send(res.locals.recipes);
 });
 

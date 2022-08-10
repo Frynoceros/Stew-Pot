@@ -25,10 +25,10 @@ export const spoonRecipeController = (req: Request, res: Response, next: NextFun
 
           // iterate through recipes
           recipes.forEach((recipe) => {
-            // map missing ingredients into array. 
-            const missingIngredients:string[] = recipe.missedIngredients.map((ingredientObj) => ingredientObj.originalName);
-            // store all ingredients, including missing ingredients. 
-            const allIngredients:string[] = ingredients.concat(missingIngredients);
+            // map missing ingredients into comma seperated string to be displayed on frontend. 
+            const missingIngredients:string = recipe.missedIngredients.map((ingredientObj) => ingredientObj.originalName).join('; ');
+            // store all ingredients, including missing ingredients into another comma seperated string to be displayed on frontend.
+            const allIngredients:string = ingredients.concat(missingIngredients).join('; ');
             // make array of recipes to be requested, passing in recipe id, missingIngredients and allIngredients
             recipeRequests.push(fetchRecipes(recipe.id, missingIngredients, allIngredients));
             });
@@ -45,7 +45,7 @@ export const spoonRecipeController = (req: Request, res: Response, next: NextFun
           // helper function to pull recipes by id recieved on initial fetch, filter them, and add them to filteredRecipes
           // note: unreachable if arrow function.
           // =============================================================================================================
-          function fetchRecipes(recipeId:number, missingIngredients:string[], allIngredients:string[]) {
+          function fetchRecipes(recipeId:number, missingIngredients:string, allIngredients:string) {
             // fetch individual recipe by id (pulled from initial fetch)
             return fetch(`https://api.spoonacular.com/recipes/${recipeId}/information?includeNutrition=false&apiKey=c7d56ffc1c7b44268cb5e992365c6f35`)
               .then(response => response.json())

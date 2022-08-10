@@ -40,8 +40,8 @@ export type filteredRecipe = {
 export type filteredRecipeResponse = {
   id:number,
   url:string,
-  allIngredients:string[],
-  missingIngredients:string[],
+  allIngredients:string,
+  missingIngredients:string,
   title:string,
   readyIn:number,
   img:string,
