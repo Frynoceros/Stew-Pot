@@ -36,44 +36,46 @@ const Search = () => {
   };
 
   return (
-    <Container id="search-page" maxWidth="xl">
+    <div>
       <Navbar />
-      <Box id="button-box" sx={{textAlign: 'center'}} m={2} p={3}>
-        <Button
-          id="select-ingredients-btn"
-          variant="contained"
-          color="primary"
-          onClick={handleOpen}
-          sx={{height: 40, width: 450, p: 1, m: 2}}
-        >
-          Click Here to Select Ingredients
-        </Button>
+      <Container id="search-page" maxWidth="xl">
+        <Box id="button-box" sx={{textAlign: 'center'}} m={2} p={3}>
+          <Button
+            id="select-ingredients-btn"
+            variant="contained"
+            color="primary"
+            onClick={handleOpen}
+            sx={{height: 40, width: 600, p: 1, m: 2}}
+          >
+            Click Here to Select Ingredients
+          </Button>
 
-        <Modal
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-          hideBackdrop
-          open={open}
-          onClose={handleClose}
-        >
-          <PantryPopup
-            handleClose={handleClose}
-            setRecipeList={setRecipeList}
-          />
-        </Modal>
-      </Box>
+          <Modal
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            hideBackdrop
+            open={open}
+            onClose={handleClose}
+          >
+            <PantryPopup
+              handleClose={handleClose}
+              setRecipeList={setRecipeList}
+            />
+          </Modal>
+        </Box>
 
-      <Grid
-        id="recipe-box"
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-      >
-        {recipes}
-      </Grid>
-    </Container>
+        <Grid
+          id="recipe-box"
+          container
+          spacing={0}
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+        >
+          {recipes}
+        </Grid>
+      </Container>
+    </div>
   );
 };
 

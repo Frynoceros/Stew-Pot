@@ -90,7 +90,7 @@ export default function SignUp() {
               <KitchenIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign up
+              Stew Pot
             </Typography>
             <Box
               component="form"

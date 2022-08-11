@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import KitchenIcon from '@mui/icons-material/Kitchen';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import logo from '../assets/logo.png'
+import logo from '../assets/logo.png';
 
 function Copyright(props: any) {
   return (
@@ -109,10 +109,10 @@ export default function Login() {
             }}
           >
             <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
-              <img src={logo} style={{height:'100%', width: '100%'}}></img>
+              <img src={logo} style={{height: '100%', width: '100%'}}></img>
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              Stew Pot
             </Typography>
             <Box
               component="form"
