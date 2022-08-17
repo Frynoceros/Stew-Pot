@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "outDir": "./tsCompiled",
+    "sourceMap": true,
+    "jsx": "react",
+    "esModuleInterop": true,
+    "noImplicitAny": false,
+    "moduleResolution": "node"
+  },
+  "include": ["client", "server"],
+  "exclude": ["node_modules"]
+}
