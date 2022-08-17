@@ -2,42 +2,12 @@ import React, {useState} from 'react';
 import Recipe from './Recipe';
 import PantryPopup from './PantryPopup';
 import {Container, Button, Modal, Box, Grid} from '@mui/material';
-import Navbar from '../Navbar'
+import Navbar from '../Navbar';
 import {IRecipe} from '../../types';
 
 const Search = () => {
   const [recipeList, setRecipeList] = useState([]);
 
-  // let recipeResults: IRecipe[] = [
-  //   {
-  //     key: 1,
-  //     id: 1,
-  //     name: 'ham and cheese',
-  //     recipeUrl: 'hamandcheese.com',
-  //     img: 'google.com',
-  //     cuisine: 'american',
-  //     ingredientList: 'ham, cheese, bread',
-  //     cookTime: '5 min',
-  //     servings: 1,
-  //     accountId: 1,
-  //     isFav: true,
-  //   },
-  //   {
-  //     key: 2,
-  //     id: 2,
-  //     name: 'ham and cheese',
-  //     recipeUrl: 'hamandcheese.com',
-  //     img: 'google.com',
-  //     cuisine: 'american',
-  //     ingredientList: 'ham, cheese, bread',
-  //     cookTime: '5 min',
-  //     servings: 1,
-  //     accountId: 1,
-  //     isFav: false,
-  //   },
-  // ];
-
-  // const recipes: React.ReactElement[] = recipeResults.map(el => {
   const recipes: any[] = recipeList.map((el) => {
     return (
       <Recipe
@@ -66,44 +36,46 @@ const Search = () => {
   };
 
   return (
-    <Container id="search-page" maxWidth="xl">
-      <Navbar/>
-      <Box id="button-box" sx={{textAlign: 'center'}} m={2} p={3}>
-        <Button
-          id="select-ingredients-btn"
-          variant="contained"
-          color="primary"
-          onClick={handleOpen}
-          sx={{height: 40, width: 450, p: 1, m: 2}}
-        >
-          Click Here to Select Ingredients
-        </Button>
+    <div>
+      <Navbar />
+      <Container id="search-page" maxWidth="xl">
+        <Box id="button-box" sx={{textAlign: 'center'}} m={2} p={3}>
+          <Button
+            id="select-ingredients-btn"
+            variant="contained"
+            color="primary"
+            onClick={handleOpen}
+            sx={{height: 40, width: 600, p: 1, m: 2}}
+          >
+            Click Here to Select Ingredients
+          </Button>
 
-        <Modal
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-          hideBackdrop
-          open={open}
-          onClose={handleClose}
-        >
-          <PantryPopup
-            handleClose={handleClose}
-            setRecipeList={setRecipeList}
-          />
-        </Modal>
-      </Box>
+          <Modal
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            hideBackdrop
+            open={open}
+            onClose={handleClose}
+          >
+            <PantryPopup
+              handleClose={handleClose}
+              setRecipeList={setRecipeList}
+            />
+          </Modal>
+        </Box>
 
-      <Grid
-        id="recipe-box"
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-      >
-        {recipes}
-      </Grid>
-    </Container>
+        <Grid
+          id="recipe-box"
+          container
+          spacing={0}
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+        >
+          {recipes}
+        </Grid>
+      </Container>
+    </div>
   );
 };
 
